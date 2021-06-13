@@ -1,11 +1,10 @@
 package com.binarystudio.academy.springsecurity.domain.hotel;
 
 import com.binarystudio.academy.springsecurity.domain.hotel.model.Hotel;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -16,8 +15,11 @@ public class HotelService {
 		this.hotelRepository = hotelRepository;
 	}
 
-	public boolean delete(UUID hotelId) {
-		return hotelRepository.delete(hotelId);
+	public void delete(UUID hotelId) {
+		boolean wasDeleted = hotelRepository.delete(hotelId);
+		if (!wasDeleted) {
+			throw new NoSuchElementException();
+		}
 	}
 
 	public List<Hotel> getAll() {
@@ -29,6 +31,6 @@ public class HotelService {
 	}
 
 	public Hotel getById(UUID hotelId) {
-		return hotelRepository.getById(hotelId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		return hotelRepository.getById(hotelId).orElseThrow();
 	}
 }

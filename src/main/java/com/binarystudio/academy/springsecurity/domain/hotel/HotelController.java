@@ -32,6 +32,7 @@ public class HotelController {
 
 	@PatchMapping("update")
 	public Hotel updateHotel(@RequestBody Hotel hotel) {
+		hotelService.getById(hotel.getId());
 		return hotelService.save(hotel);
 	}
 
