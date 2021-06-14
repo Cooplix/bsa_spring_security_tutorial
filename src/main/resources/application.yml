@@ -5,4 +5,4 @@ jwt:
   # base64 encoded key
   secret: 9i3Bk8SJ3CfqIm+v9JJjHc5PGmqNmevaXDLYX4k0sW9hmhuvA6rTNWIM6uISlbVWcn28bMs+gY+P3LLzRytHMQ==
   # 24h
-  secs_to_expire: 5
+  secs_to_expire: 86400
