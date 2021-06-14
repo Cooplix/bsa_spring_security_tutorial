@@ -6,3 +6,26 @@ jwt:
   secret: 9i3Bk8SJ3CfqIm+v9JJjHc5PGmqNmevaXDLYX4k0sW9hmhuvA6rTNWIM6uISlbVWcn28bMs+gY+P3LLzRytHMQ==
   # 24h
   secs_to_expire: 86400
+
+oauth2:
+  redirect-uris: http://localhost:3000
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: {OAUTH2_GOOGLE_CLIENT_ID}
+            client-secret: {OAUTH2_GOOGLE_CLIENT_SECRET}
+            redirectUri: "{baseUrl}/auth/oauth2/code/{registrationId}"
+            scope:
+              - email
+              - profile
+          facebook:
+            clientId: {OAUTH2_FACEBOOK_CLIENT_ID}
+            clientSecret: {OAUTH2_FACEBOOK_CLIENT_SECRET}
+            redirectUri: "{baseUrl}/auth/oauth2/code/{registrationId}"
+            scope:
+              - email
+              - public_profile
