@@ -26,7 +26,13 @@ public class HotelService {
 		return hotelRepository.getHotels();
 	}
 
-	public Hotel save(Hotel hotel) {
+
+	public Hotel update(Hotel hotel) {
+		getById(hotel.getId());
+		return hotelRepository.save(hotel);
+	}
+
+	public Hotel create(Hotel hotel) {
 		return hotelRepository.save(hotel);
 	}
 

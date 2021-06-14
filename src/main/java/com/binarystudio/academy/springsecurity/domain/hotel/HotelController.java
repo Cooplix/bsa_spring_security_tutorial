@@ -27,13 +27,12 @@ public class HotelController {
 
 	@PutMapping("create")
 	public Hotel createHotel(@RequestBody Hotel hotel) {
-		return hotelService.save(hotel);
+		return hotelService.create(hotel);
 	}
 
 	@PatchMapping("update")
 	public Hotel updateHotel(@RequestBody Hotel hotel) {
-		hotelService.getById(hotel.getId());
-		return hotelService.save(hotel);
+		return hotelService.update(hotel);
 	}
 
 	@GetMapping("{hotelId}")
