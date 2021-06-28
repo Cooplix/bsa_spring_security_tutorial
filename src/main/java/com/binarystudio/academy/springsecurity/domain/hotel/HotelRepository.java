@@ -38,6 +38,7 @@ public class HotelRepository {
 			savedHotel.setDescription(hotel.getDescription());
 			savedHotel.setName(hotel.getName());
 			savedHotel.setImageUrl(hotel.getImageUrl());
+			savedHotel.setOwnerId(hotel.getOwnerId());
 			return savedHotel;
 		} else {
 			var clonedHotel = hotel.cloneWithNewId();

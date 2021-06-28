@@ -1,9 +1,9 @@
 package com.binarystudio.academy.springsecurity.security.auth;
 
 import com.binarystudio.academy.springsecurity.domain.user.UserService;
-import com.binarystudio.academy.springsecurity.domain.user.model.AuthorizationRequest;
+import com.binarystudio.academy.springsecurity.security.auth.model.AuthResponse;
+import com.binarystudio.academy.springsecurity.security.auth.model.AuthorizationRequest;
 import com.binarystudio.academy.springsecurity.security.jwt.JwtProvider;
-import com.binarystudio.academy.springsecurity.security.model.AuthResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

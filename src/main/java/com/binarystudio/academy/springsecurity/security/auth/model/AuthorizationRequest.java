@@ -1,4 +1,4 @@
-package com.binarystudio.academy.springsecurity.domain.user.model;
+package com.binarystudio.academy.springsecurity.security.auth.model;
 
 import lombok.Data;
 

@@ -4,8 +4,9 @@ server:
 jwt:
   # base64 encoded key
   secret: 9i3Bk8SJ3CfqIm+v9JJjHc5PGmqNmevaXDLYX4k0sW9hmhuvA6rTNWIM6uISlbVWcn28bMs+gY+P3LLzRytHMQ==
-  # 24h
-  secs_to_expire: 86400
+  # 30min
+  secs_to_expire_access: 1800
+  # 2. todo: refresh token expiration time
 
 oauth2:
   redirect-uris: http://localhost:3000
@@ -16,6 +17,7 @@ spring:
       client:
         registration:
           google:
+            # 3. todo: replace secrets with your own and make sure OAuth2's working
             client-id: {OAUTH2_GOOGLE_CLIENT_ID}
             client-secret: {OAUTH2_GOOGLE_CLIENT_SECRET}
             redirectUri: "{baseUrl}/auth/oauth2/code/{registrationId}"
@@ -29,3 +31,4 @@ spring:
             scope:
               - email
               - public_profile
+          # 4. todo: add github OAuth2

@@ -34,6 +34,7 @@ public class SimpleOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 		}
 		var oauthUser = (OAuth2User) authentication.getPrincipal();
 		var storedUser = userRepository.findByEmail(oauthUser.getAttribute("email")).orElseThrow();
+		// 2. todo: don't forget that OAuth2 users also need refresh tokens
 		var token = jwtProvider.generateToken(storedUser);
 		return UriComponentsBuilder.fromUriString(redirUrl)
 				.queryParam("token", token).build().toUriString();
