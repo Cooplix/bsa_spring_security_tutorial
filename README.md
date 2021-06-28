@@ -1,7 +1,7 @@
 # Overview
 
 В этом задании нужно будет доработать Spring Boot приложение реализовав нужный функционал. Шаблон приложения скачайте по
-ссылке на [Github](https://github.com/Quipex/Bsa-Spring-Security-template). Для общения с приложением рекомендую
+ссылке на [Github](https://github.com/Quipex/bsa_spring_security_tutorial/tree/homework). Для общения с приложением рекомендую
 воспользоваться [Postman](https://www.postman.com)'ом чтобы не тратить время на написание фронтенда.
 
 ## Задание
