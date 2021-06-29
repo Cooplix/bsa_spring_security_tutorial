@@ -16,7 +16,7 @@ public class HotelService {
 	}
 
 	public void delete(UUID hotelId) {
-		// 5. todo: only the owner of the hotel or admin may delete the hotel
+		// 4. todo: only the owner of the hotel or admin may delete the hotel
 		boolean wasDeleted = hotelRepository.delete(hotelId);
 		if (!wasDeleted) {
 			throw new NoSuchElementException();
@@ -29,7 +29,7 @@ public class HotelService {
 
 
 	public Hotel update(Hotel hotel) {
-		// 5. todo: only the owner of the hotel or admin may update the hotel
+		// 4. todo: only the owner of the hotel or admin may update the hotel
 		getById(hotel.getId());
 		return hotelRepository.save(hotel);
 	}

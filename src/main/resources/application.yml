@@ -11,24 +11,4 @@ jwt:
 oauth2:
   redirect-uris: http://localhost:3000
 
-spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            # 3. todo: replace secrets with your own and make sure OAuth2's working
-            client-id: {OAUTH2_GOOGLE_CLIENT_ID}
-            client-secret: {OAUTH2_GOOGLE_CLIENT_SECRET}
-            redirectUri: "{baseUrl}/auth/oauth2/code/{registrationId}"
-            scope:
-              - email
-              - profile
-          facebook:
-            clientId: {OAUTH2_FACEBOOK_CLIENT_ID}
-            clientSecret: {OAUTH2_FACEBOOK_CLIENT_SECRET}
-            redirectUri: "{baseUrl}/auth/oauth2/code/{registrationId}"
-            scope:
-              - email
-              - public_profile
-          # 4. todo: add github OAuth2
+# 3. todo: Add OAuth2 configuration with preferred provider, make sure OAuth2 is working

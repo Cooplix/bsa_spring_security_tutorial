@@ -26,25 +26,26 @@ public class AuthController {
 	}
 
 	@PostMapping("safe/refresh")
-	public RefreshResponse refreshTokenPair(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+	public AuthResponse refreshTokenPair(@RequestBody RefreshTokenRequest refreshTokenRequest) {
 		// 2. todo: implement refresh token
 		return null;
 	}
 
 	@PutMapping("safe/forgotten_password")
 	public void forgotPasswordRequest(@RequestParam String email) {
-		// 7. todo: implement token display for further password update
+		// 6. todo: implement token display for further password update
 	}
 
 	@PatchMapping("safe/forgotten_password")
-	public RefreshResponse forgottenPasswordReplacement(@RequestBody ForgottenPasswordReplacementRequest forgottenPasswordReplacementRequest) {
-		// 7. todo: implement password replacement and returning tokens
+	public AuthResponse forgottenPasswordReplacement(@RequestBody ForgottenPasswordReplacementRequest forgottenPasswordReplacementRequest) {
+		// 6. todo: implement password replacement and returning tokens
 		return null;
 	}
 
 	@PatchMapping("change_password")
-	public void changePassword(@RequestBody PasswordChangeRequest passwordChangeRequest) {
-		// 6. todo: implement password changing
+	public AuthResponse changePassword(@RequestBody PasswordChangeRequest passwordChangeRequest) {
+		// 5. todo: implement password changing
+		return null;
 	}
 
 	@GetMapping("me")

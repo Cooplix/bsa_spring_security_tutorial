@@ -26,6 +26,7 @@ public class AuthService {
 		if (passwordsDontMatch(authorizationRequest.getPassword(), userDetails.getPassword())) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid password");
 		}
+		// 2. todo: auth and refresh token are given to user
 		return AuthResponse.of(jwtProvider.generateToken(userDetails));
 	}
 
