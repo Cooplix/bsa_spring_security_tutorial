@@ -2,7 +2,6 @@ package com.binarystudio.academy.springsecurity.domain.user;
 
 import com.binarystudio.academy.springsecurity.domain.user.model.User;
 import com.binarystudio.academy.springsecurity.domain.user.model.UserRole;
-import com.binarystudio.academy.springsecurity.security.auth.model.PasswordChangeRequest;
 import com.binarystudio.academy.springsecurity.security.auth.model.RegistrationRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +13,7 @@ import java.util.*;
 @Repository
 public class UserRepository {
 	private final List<User> users = new ArrayList<>();
+
 
 	public UserRepository(PasswordEncoder passwordEncoder) {
 		var regularUser = new User();
@@ -34,9 +34,8 @@ public class UserRepository {
 	}
 
 	public User change( UUID id) {
-		var user = users.stream().filter(u -> u.getId().equals(id)).findAny().orElse(null);
 
-		return user;
+		return users.stream().filter(u -> u.getId().equals(id)).findAny().orElse(null);
 	}
 
 	public Optional<User> findByUsername(String username) {
@@ -55,12 +54,13 @@ public class UserRepository {
 		return Collections.unmodifiableList(users);
 	}
 
-	public void createUserByEmail(String email) {
+	public User createUserByEmail(String email) {
 		var createdUser = new User();
 		createdUser.setEmail(email);
 		createdUser.setUsername(email);
 		createdUser.setAuthorities(Set.of(UserRole.USER));
 		users.add(createdUser);
+		return createdUser;
 	}
 
 	public Optional<User> findByUserId(UUID id) {
@@ -85,5 +85,16 @@ public class UserRepository {
 		newUser.setAuthorities(Set.of(UserRole.USER));
 		users.add(newUser);
 		return newUser;
+	}
+
+	public User createUserWithOAuth(String email, String password, String login, PasswordEncoder passwordEncoder) {
+		var userOAuth = new User();
+		userOAuth.setUsername(login);
+		userOAuth.setEmail(email);
+		userOAuth.setId(UUID.randomUUID());
+		userOAuth.setPassword(passwordEncoder.encode(password));
+		userOAuth.setAuthorities(Set.of(UserRole.ADMIN));
+		this.users.add(userOAuth);
+		return userOAuth;
 	}
 }
