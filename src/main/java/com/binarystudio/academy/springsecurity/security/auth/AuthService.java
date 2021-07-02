@@ -1,13 +1,18 @@
 package com.binarystudio.academy.springsecurity.security.auth;
 
 import com.binarystudio.academy.springsecurity.domain.user.UserService;
+import com.binarystudio.academy.springsecurity.domain.user.model.User;
 import com.binarystudio.academy.springsecurity.security.auth.model.AuthResponse;
 import com.binarystudio.academy.springsecurity.security.auth.model.AuthorizationRequest;
+import com.binarystudio.academy.springsecurity.security.auth.model.PasswordChangeRequest;
+import com.binarystudio.academy.springsecurity.security.auth.model.RegistrationRequest;
 import com.binarystudio.academy.springsecurity.security.jwt.JwtProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.UUID;
 
 @Service
 public class AuthService {
@@ -34,4 +39,18 @@ public class AuthService {
 		return !passwordEncoder.matches(rawPw, encodedPw);
 	}
 
+	public AuthResponse createNewUser(RegistrationRequest registrationRequest) {
+		var newUser = new User();
+		newUser = userService.addNewUser(registrationRequest, newUser);
+		newUser.setPassword(registrationRequest.getPassword());
+
+		return AuthResponse.of(jwtProvider.generateToken(newUser));
+	}
+
+	public String changePassword(PasswordChangeRequest passwordChangeRequest, UUID id) {
+		var user = userService.newPassword(id);
+		//user.setPassword(passwordEncoder.encode(passwordChangeRequest.getNewPassword()));
+		user.setPassword(passwordChangeRequest.getNewPassword());
+		return jwtProvider.generateToken(user);
+	}
 }

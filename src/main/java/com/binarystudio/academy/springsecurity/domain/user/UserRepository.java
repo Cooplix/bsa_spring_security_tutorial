@@ -2,6 +2,8 @@ package com.binarystudio.academy.springsecurity.domain.user;
 
 import com.binarystudio.academy.springsecurity.domain.user.model.User;
 import com.binarystudio.academy.springsecurity.domain.user.model.UserRole;
+import com.binarystudio.academy.springsecurity.security.auth.model.PasswordChangeRequest;
+import com.binarystudio.academy.springsecurity.security.auth.model.RegistrationRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
@@ -29,12 +31,22 @@ public class UserRepository {
 		this.users.add(adminUser);
 	}
 
+	public User change( UUID id) {
+		var user = users.stream().filter(u -> u.getId().equals(id)).findAny().orElse(null);
+
+		return user;
+	}
+
 	public Optional<User> findByUsername(String username) {
-		return users.stream().filter(user -> user.getUsername().equals(username)).findAny();
+		return users.stream()
+				.filter(user -> user.getUsername().equals(username))
+				.findAny();
 	}
 
 	public Optional<User> findByEmail(String email) {
-		return users.stream().filter(user -> user.getEmail().equals(email)).findAny();
+		return users.stream()
+				.filter(user -> user.getEmail().equals(email))
+				.findAny();
 	}
 
 	public List<User> findUsers() {
@@ -47,5 +59,21 @@ public class UserRepository {
 		createdUser.setUsername(email);
 		createdUser.setAuthorities(Set.of(UserRole.USER));
 		users.add(createdUser);
+	}
+
+	public Optional<User> findByUserId(UUID id) {
+		return users.stream()
+				.filter(user -> user.getId().equals(id))
+				.findAny();
+	}
+
+
+	public User createUser(RegistrationRequest registrationRequest, User newUser) {
+		newUser.setUsername(registrationRequest.getLogin());
+		newUser.setEmail(registrationRequest.getEmail());
+		newUser.setId(UUID.randomUUID());
+		newUser.setAuthorities(Set.of(UserRole.USER));
+		users.add(newUser);
+		return newUser;
 	}
 }

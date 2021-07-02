@@ -1,6 +1,7 @@
 package com.binarystudio.academy.springsecurity.domain.hotel;
 
 import com.binarystudio.academy.springsecurity.domain.hotel.model.Hotel;
+import com.binarystudio.academy.springsecurity.domain.user.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -31,14 +32,14 @@ public class HotelRepository {
 		return Collections.unmodifiableList(hotels);
 	}
 
-	public Hotel save(Hotel hotel) {
+	public Hotel save(Hotel hotel, User user) {
 		var foundHotel = getById(hotel.getId());
 		if (foundHotel.isPresent()) {
 			var savedHotel = foundHotel.get();
 			savedHotel.setDescription(hotel.getDescription());
 			savedHotel.setName(hotel.getName());
 			savedHotel.setImageUrl(hotel.getImageUrl());
-			savedHotel.setOwnerId(hotel.getOwnerId());
+			savedHotel.setOwnerId(user.getId());
 			return savedHotel;
 		} else {
 			var clonedHotel = hotel.cloneWithNewId();

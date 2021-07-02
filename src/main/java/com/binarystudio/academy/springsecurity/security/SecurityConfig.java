@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// Our private endpoints
 				.antMatchers("/hotels/**").hasAnyRole(UserRole.ADMIN.toString(), UserRole.USER.toString())
 				.antMatchers("/users/all").hasRole(UserRole.ADMIN.toString())
+				.antMatchers("/actuator/**").hasRole(UserRole.ADMIN.toString())
 				.anyRequest().authenticated();
 	}
 

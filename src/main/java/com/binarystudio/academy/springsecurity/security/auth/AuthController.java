@@ -2,8 +2,12 @@ package com.binarystudio.academy.springsecurity.security.auth;
 
 import com.binarystudio.academy.springsecurity.domain.user.model.User;
 import com.binarystudio.academy.springsecurity.security.auth.model.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("auth")
@@ -22,7 +26,7 @@ public class AuthController {
 	@PostMapping("safe/register")
 	public AuthResponse register(@RequestBody RegistrationRequest registrationRequest) {
 		// 1. todo: implement registration
-		return null;
+		return authService.createNewUser(registrationRequest);
 	}
 
 	@PostMapping("safe/refresh")
@@ -34,6 +38,7 @@ public class AuthController {
 	@PutMapping("safe/forgotten_password")
 	public void forgotPasswordRequest(@RequestParam String email) {
 		// 6. todo: implement token display for further password update
+
 	}
 
 	@PatchMapping("safe/forgotten_password")
@@ -43,9 +48,12 @@ public class AuthController {
 	}
 
 	@PatchMapping("change_password")
-	public AuthResponse changePassword(@RequestBody PasswordChangeRequest passwordChangeRequest) {
+	public AuthResponse changePassword(@RequestBody PasswordChangeRequest passwordChangeRequest, @RequestParam UUID id) {
 		// 5. todo: implement password changing
-		return null;
+		//не понял что я тут должен был вернуть
+		//новый токен?
+		return AuthResponse.of(authService.changePassword(passwordChangeRequest, id));
+
 	}
 
 	@GetMapping("me")

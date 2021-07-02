@@ -32,3 +32,5 @@
 меняйте методы (GET, POST, PATCH, etc.) и пути эндпоинтов. Для того чтобы не потеряться в проекте, вы можете
 навигироваться при помощи todo, оставленных в коде
 
+
+http://localhost:8082/auth/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/resolve
