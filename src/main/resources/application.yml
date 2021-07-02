@@ -12,5 +12,29 @@ jwt:
 oauth2:
   redirect-uris: http://localhost:3000
 
-
-
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: #{PROVIDER_NAME_CLIENT_ID}
+            client-secret: #{PROVIDER_SECRET-CLIENT}
+            redirectUri: "{baseUrl}/auth/oauth2/code/{registrationId}"
+            scope:
+              - email
+              - profile
+          facebook:
+            client-id: #{PROVIDER_NAME_CLIENT_ID}
+            client-secret: #{PROVIDER_SECRET-CLIENT}
+            redirectUri: "{baseUrl}/auth/oauth2/code/{registrationId}"
+            scope:
+              - email
+              - profile
+          github:
+            client-id: #{PROVIDER_NAME_CLIENT_ID}
+            client-secret: #{PROVIDER_SECRET-CLIENT}
+            redirectUri: "{baseUrl}/auth/oauth2/code/{registrationId}"
+            scope:
+              - email
+              - profile
