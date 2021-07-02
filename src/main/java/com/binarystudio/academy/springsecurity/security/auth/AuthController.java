@@ -45,7 +45,7 @@ public class AuthController {
 	@PatchMapping("safe/forgotten_password")
 	public AuthResponse forgottenPasswordReplacement(@RequestBody ForgottenPasswordReplacementRequest forgottenPasswordReplacementRequest) {
 		// 6. todo: implement password replacement and returning tokens
-		return null;
+		return authService.forgottenPasswordReplacement(forgottenPasswordReplacementRequest);
 	}
 
 	@PatchMapping("change_password")

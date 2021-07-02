@@ -64,4 +64,10 @@ public class AuthService {
 		var user = userService.loadUserByEmail(jwtProvider.getLoginFromToken(refreshTokenRequest.getRefreshToken()));
 		return AuthResponse.of(jwtProvider.generateToken(user), jwtProvider.refreshToken(user));
 	}
+
+	public AuthResponse forgottenPasswordReplacement(ForgottenPasswordReplacementRequest forgottenPasswordReplacementRequest) {
+		var user = userService.loadUserByEmail(jwtProvider.getLoginFromToken(forgottenPasswordReplacementRequest.getToken()));
+		user.setPassword(passwordEncoder.encode(forgottenPasswordReplacementRequest.getNewPassword()));
+		return AuthResponse.of(jwtProvider.generateToken(user), jwtProvider.refreshToken(user));
+	}
 }
