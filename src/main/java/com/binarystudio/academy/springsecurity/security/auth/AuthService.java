@@ -59,7 +59,7 @@ public class AuthService {
 		}
 		return AuthResponse.of(jwtProvider.generateToken(findUserByEmail), jwtProvider.refreshToken(findUserByEmail));
 	}
-
+	//ексепшени добавлю трішки пізніше
 	public AuthResponse refreshTokenPair(RefreshTokenRequest refreshTokenRequest) {
 		var user = userService.loadUserByEmail(jwtProvider.getLoginFromToken(refreshTokenRequest.getRefreshToken()));
 		return AuthResponse.of(jwtProvider.generateToken(user), jwtProvider.refreshToken(user));
