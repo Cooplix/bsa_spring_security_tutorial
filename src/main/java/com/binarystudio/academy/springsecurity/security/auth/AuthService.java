@@ -36,18 +36,17 @@ public class AuthService {
 		return !passwordEncoder.matches(rawPw, encodedPw);
 	}
 
-	public AuthResponse createNewUser(RegistrationRequest registrationRequest) {
+	public AuthResponse register(RegistrationRequest registrationRequest) {
 		var newUser = new User();
-		newUser = userService.addNewUser(registrationRequest, newUser);
-		newUser.setPassword(registrationRequest.getPassword());
+		newUser = userService.createNewUserWithoutOAuth(registrationRequest, newUser);
+		newUser.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
 
 		return AuthResponse.of(jwtProvider.generateToken(newUser), jwtProvider.refreshToken(newUser));
 	}
 
 	public AuthResponse changePassword(PasswordChangeRequest passwordChangeRequest, UUID id) {
 		var user = userService.newPassword(id);
-		//user.setPassword(passwordEncoder.encode(passwordChangeRequest.getNewPassword()));
-		user.setPassword(passwordChangeRequest.getNewPassword());
+		user.setPassword(passwordEncoder.encode(passwordChangeRequest.getNewPassword()));
 		return AuthResponse.of(jwtProvider.generateToken(user), jwtProvider.refreshToken(user));
 	}
 

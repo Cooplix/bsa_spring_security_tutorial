@@ -34,10 +34,10 @@ public class UserService implements UserDetailsService {
 	}
 
 	public User newPassword(UUID id) {
-		return userRepository.change(id);
+		return userRepository.changeUserPassword(id);
 	}
 
-	public User addNewUser(RegistrationRequest registrationRequest, User newUser) {
+	public User createNewUserWithoutOAuth(RegistrationRequest registrationRequest, User newUser) {
 		return userRepository.createUser(registrationRequest, newUser);
 	}
 }

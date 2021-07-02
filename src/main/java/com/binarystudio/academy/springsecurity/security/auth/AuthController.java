@@ -26,7 +26,7 @@ public class AuthController {
 	@PostMapping("safe/register")
 	public AuthResponse register(@RequestBody RegistrationRequest registrationRequest) {
 		// 1. todo: implement registration
-		return authService.createNewUser(registrationRequest);
+		return authService.register(registrationRequest);
 	}
 
 	@PostMapping("safe/refresh")

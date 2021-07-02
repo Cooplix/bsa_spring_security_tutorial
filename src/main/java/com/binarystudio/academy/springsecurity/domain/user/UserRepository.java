@@ -33,7 +33,7 @@ public class UserRepository {
 		this.users.add(adminUser);
 	}
 
-	public User change( UUID id) {
+	public User changeUserPassword( UUID id) {
 
 		return users.stream().filter(u -> u.getId().equals(id)).findAny().orElse(null);
 	}
