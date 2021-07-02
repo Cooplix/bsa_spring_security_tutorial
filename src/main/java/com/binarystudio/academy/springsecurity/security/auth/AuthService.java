@@ -32,7 +32,7 @@ public class AuthService {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid password");
 		}
 		// 2. todo: auth and refresh token are given to user
-		return AuthResponse.of(jwtProvider.generateToken(userDetails));
+		return AuthResponse.of(jwtProvider.generateToken(userDetails), jwtProvider.refreshToken(userDetails));
 	}
 
 	private boolean passwordsDontMatch(String rawPw, String encodedPw) {
@@ -44,13 +44,22 @@ public class AuthService {
 		newUser = userService.addNewUser(registrationRequest, newUser);
 		newUser.setPassword(registrationRequest.getPassword());
 
-		return AuthResponse.of(jwtProvider.generateToken(newUser));
+		return AuthResponse.of(jwtProvider.generateToken(newUser), jwtProvider.refreshToken(newUser));
 	}
 
-	public String changePassword(PasswordChangeRequest passwordChangeRequest, UUID id) {
+	public AuthResponse changePassword(PasswordChangeRequest passwordChangeRequest, UUID id) {
 		var user = userService.newPassword(id);
 		//user.setPassword(passwordEncoder.encode(passwordChangeRequest.getNewPassword()));
 		user.setPassword(passwordChangeRequest.getNewPassword());
-		return jwtProvider.generateToken(user);
+		return AuthResponse.of(jwtProvider.generateToken(user), jwtProvider.refreshToken(user));
+	}
+
+	public AuthResponse displayToken(String email) {
+		var findUserByEmail = userService.loadUserByEmail(email);
+
+		if(findUserByEmail == null) {
+			throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid password");
+		}
+		return AuthResponse.of(jwtProvider.generateToken(findUserByEmail), jwtProvider.refreshToken(findUserByEmail));
 	}
 }

@@ -42,13 +42,13 @@ public class HotelService {
 		// 4. todo: only the owner of the hotel or admin may update the hotel
 		if(checkOwnerId(hotel.getId(), user.getId()) || checkUserRole(user)) {
 			getById(hotel.getId());
-			return hotelRepository.save(hotel, user);
+			return hotelRepository.save(hotel);
 		}
 		throw new AccessDeniedException("Permission denied, you are not owner of this Hotel");
 	}
 
-	public Hotel create(Hotel hotel, User user) {
-		return hotelRepository.save(hotel, user);
+	public Hotel create(Hotel hotel) {
+		return hotelRepository.save(hotel);
 	}
 
 	public Hotel getById(UUID hotelId) {

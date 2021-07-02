@@ -32,14 +32,14 @@ public class HotelRepository {
 		return Collections.unmodifiableList(hotels);
 	}
 
-	public Hotel save(Hotel hotel, User user) {
+	public Hotel save(Hotel hotel) {
 		var foundHotel = getById(hotel.getId());
 		if (foundHotel.isPresent()) {
 			var savedHotel = foundHotel.get();
 			savedHotel.setDescription(hotel.getDescription());
 			savedHotel.setName(hotel.getName());
 			savedHotel.setImageUrl(hotel.getImageUrl());
-			savedHotel.setOwnerId(user.getId());
+			savedHotel.setOwnerId(hotel.getOwnerId());
 			return savedHotel;
 		} else {
 			var clonedHotel = hotel.cloneWithNewId();

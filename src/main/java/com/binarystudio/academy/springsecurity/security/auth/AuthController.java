@@ -38,6 +38,7 @@ public class AuthController {
 	@PutMapping("safe/forgotten_password")
 	public void forgotPasswordRequest(@RequestParam String email) {
 		// 6. todo: implement token display for further password update
+		authService.displayToken(email);
 
 	}
 
@@ -52,7 +53,7 @@ public class AuthController {
 		// 5. todo: implement password changing
 		//не понял что я тут должен был вернуть
 		//новый токен?
-		return AuthResponse.of(authService.changePassword(passwordChangeRequest, id));
+		return authService.changePassword(passwordChangeRequest, id);
 
 	}
 
