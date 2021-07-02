@@ -12,31 +12,3 @@ jwt:
 oauth2:
   redirect-uris: http://localhost:3000
 
-
-
-spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: 344003459424-ad7t8m1g1p0i87rmrvr8cg76tnjq0ehr.apps.googleusercontent.com
-            client-secret: khv8CPjkKPryN561QUiCMwWJ
-            redirectUri: "{baseUrl}/auth/oauth2/code/{registrationId}"
-            scope:
-              - email
-              - profile
-          facebook:
-            client-id: 455579479107335
-            client-secret: 257f1e662f00c4ab72bb1ed0216ef90f
-            redirectUri: "{baseUrl}/auth/oauth2/code/{registrationId}"
-            scope:
-              - email
-              - profile
-          github:
-            client-id: c1323976e59281b4ad55
-            client-secret: 6c01bcdee607186fcdfbab9f18e9b7313a145d28
-            redirectUri: "{baseUrl}/auth/oauth2/code/{registrationId}"
-            scope:
-              - email
-              - profile
