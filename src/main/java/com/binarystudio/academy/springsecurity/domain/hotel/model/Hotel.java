@@ -12,6 +12,7 @@ public class Hotel {
 	private String imageUrl;
 	private UUID ownerId;
 
+
 	public static Hotel of(String name, String description, String imageUrl) {
 		Hotel hotel = new Hotel();
 		hotel.setId(UUID.randomUUID());
@@ -24,4 +25,6 @@ public class Hotel {
 	public Hotel cloneWithNewId() {
 		return of(name, description, imageUrl);
 	}
+	
+	
 }

@@ -32,7 +32,7 @@ public class AuthController {
 	@PostMapping("safe/refresh")
 	public AuthResponse refreshTokenPair(@RequestBody RefreshTokenRequest refreshTokenRequest) {
 		// 2. todo: implement refresh token
-		return null;
+		return authService.refreshTokenPair(refreshTokenRequest);
 	}
 
 	@PutMapping("safe/forgotten_password")

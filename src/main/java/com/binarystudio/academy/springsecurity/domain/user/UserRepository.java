@@ -4,8 +4,10 @@ import com.binarystudio.academy.springsecurity.domain.user.model.User;
 import com.binarystudio.academy.springsecurity.domain.user.model.UserRole;
 import com.binarystudio.academy.springsecurity.security.auth.model.PasswordChangeRequest;
 import com.binarystudio.academy.springsecurity.security.auth.model.RegistrationRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -69,6 +71,14 @@ public class UserRepository {
 
 
 	public User createUser(RegistrationRequest registrationRequest, User newUser) {
+		if(findByEmail(registrationRequest.getEmail()).isPresent() ) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email: " + registrationRequest.getEmail()  + " already exist in DB");
+		}
+
+		if(findByUsername(registrationRequest.getLogin()).isPresent()) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Login: " + registrationRequest.getLogin()  +  "already exist in DB");
+		}
+
 		newUser.setUsername(registrationRequest.getLogin());
 		newUser.setEmail(registrationRequest.getEmail());
 		newUser.setId(UUID.randomUUID());

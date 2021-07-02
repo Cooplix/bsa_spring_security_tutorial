@@ -2,10 +2,7 @@ package com.binarystudio.academy.springsecurity.security.auth;
 
 import com.binarystudio.academy.springsecurity.domain.user.UserService;
 import com.binarystudio.academy.springsecurity.domain.user.model.User;
-import com.binarystudio.academy.springsecurity.security.auth.model.AuthResponse;
-import com.binarystudio.academy.springsecurity.security.auth.model.AuthorizationRequest;
-import com.binarystudio.academy.springsecurity.security.auth.model.PasswordChangeRequest;
-import com.binarystudio.academy.springsecurity.security.auth.model.RegistrationRequest;
+import com.binarystudio.academy.springsecurity.security.auth.model.*;
 import com.binarystudio.academy.springsecurity.security.jwt.JwtProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -61,5 +58,10 @@ public class AuthService {
 			throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid password");
 		}
 		return AuthResponse.of(jwtProvider.generateToken(findUserByEmail), jwtProvider.refreshToken(findUserByEmail));
+	}
+
+	public AuthResponse refreshTokenPair(RefreshTokenRequest refreshTokenRequest) {
+		var user = userService.loadUserByEmail(jwtProvider.getLoginFromToken(refreshTokenRequest.getRefreshToken()));
+		return AuthResponse.of(jwtProvider.generateToken(user), jwtProvider.refreshToken(user));
 	}
 }
