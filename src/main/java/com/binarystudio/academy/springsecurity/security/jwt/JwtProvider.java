@@ -39,8 +39,18 @@ public class JwtProvider {
 		return jwtParser;
 	}
 
+	// 2. todo: refresh token should be generated here
+	public String refreshToken(User user) {
+		Date date = Date.from(LocalDateTime.now().plusSeconds(jwtProperties.getSecs_to_refresh_token()).toInstant(ZoneOffset.UTC));
+		return Jwts.builder()
+				.setSubject(user.getUsername())
+				.setExpiration(date)
+				.signWith(key())
+				.compact();
+	}
+
 	public String generateToken(User user) {
-		Date date = Date.from(LocalDateTime.now().plusSeconds(jwtProperties.getSecs_to_expire()).toInstant(ZoneOffset.UTC));
+		Date date = Date.from(LocalDateTime.now().plusSeconds(jwtProperties.getSecs_to_expire_access()).toInstant(ZoneOffset.UTC));
 		return Jwts.builder()
 				.setSubject(user.getUsername())
 				.setExpiration(date)
@@ -68,4 +78,6 @@ public class JwtProvider {
 			throw new JwtException("Invalid token", "jwt-invalid");
 		}
 	}
+
+
 }

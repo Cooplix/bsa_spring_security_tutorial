@@ -1,6 +1,8 @@
 package com.binarystudio.academy.springsecurity.domain.hotel;
 
 import com.binarystudio.academy.springsecurity.domain.hotel.model.Hotel;
+import com.binarystudio.academy.springsecurity.domain.user.model.User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +23,8 @@ public class HotelController {
 	}
 
 	@DeleteMapping("delete/{hotelId}")
-	public void deleteHotel(@PathVariable UUID hotelId) {
-		hotelService.delete(hotelId);
+	public void deleteHotel(@PathVariable UUID hotelId, @AuthenticationPrincipal User user) {
+		hotelService.delete(hotelId, user);
 	}
 
 	@PutMapping("create")
@@ -31,8 +33,8 @@ public class HotelController {
 	}
 
 	@PatchMapping("update")
-	public Hotel updateHotel(@RequestBody Hotel hotel) {
-		return hotelService.update(hotel);
+	public Hotel updateHotel(@RequestBody Hotel hotel, @AuthenticationPrincipal User user) {
+		return hotelService.update(hotel, user);
 	}
 
 	@GetMapping("{hotelId}")

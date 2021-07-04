@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	// 7. todo: make Actuator route restricted
 	private void applyRouteRestrictions(HttpSecurity http) throws Exception {
 		http
 				// Set permissions on endpoints
@@ -30,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// Our private endpoints
 				.antMatchers("/hotels/**").hasAnyRole(UserRole.ADMIN.toString(), UserRole.USER.toString())
 				.antMatchers("/users/all").hasRole(UserRole.ADMIN.toString())
+				.antMatchers("/actuator/**").hasRole(UserRole.ADMIN.toString())
 				.anyRequest().authenticated();
 	}
 

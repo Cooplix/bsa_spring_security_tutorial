@@ -21,7 +21,7 @@ public class JwtFilter extends OncePerRequestFilter {
 	@Autowired
 	private UserService userService;
 	private final String[] EXCLUDED_PATHS = new String[]{
-			"/auth/login"
+			"/auth/safe"
 	};
 
 	@Override

@@ -10,6 +10,8 @@ public class Hotel {
 	private String name;
 	private String description;
 	private String imageUrl;
+	private UUID ownerId;
+
 
 	public static Hotel of(String name, String description, String imageUrl) {
 		Hotel hotel = new Hotel();
@@ -23,4 +25,6 @@ public class Hotel {
 	public Hotel cloneWithNewId() {
 		return of(name, description, imageUrl);
 	}
+	
+	
 }
